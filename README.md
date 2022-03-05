@@ -13,4 +13,4 @@ Bonus: You can implement a login system as well but only if you have completed t
 ### How To Submit
 Submissions should be made by making a Pull Request to this Repository. You should make a separate folder with your name and put your code in it.
 
-### Deadline for submission for both batches is Saturday, 5th March 2022
+### Deadline for submission for both batches is Monday, 7th March 2022

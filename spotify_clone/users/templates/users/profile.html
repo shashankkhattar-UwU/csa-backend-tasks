@@ -1,0 +1,68 @@
+{% extends 'song/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+        <p class="text-secondary">{{ user.email }}</p>
+      </div>
+    </div>
+    <form method="POST" enctype='multipart/form-data'>
+      {% csrf_token %}
+      <fieldset class='form-group'>
+          <legend class = 'border-bottome mb-4'>
+              Profile Info
+          </legend>
+          {{ u_form|crispy }}
+          {{ p_form|crispy }}
+      </fieldset>
+      <div class='form-group'>
+          <button class='btn btn-outline-info' type="submit">Update</button>
+      </div>
+  </form>
+  </div>
+  <h1>My Songs</h1>
+  {% for track in myTracks %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                Artist:
+                <a class="mr-2 logout" href="#">{{ track.artist }}</a>
+                <small class="text-muted">Uploaded by {{ track.uploader }} on {{ track.date_uploaded|date:"F d, Y" }}    </small>
+                <a href="{% url 'track-update' track.id%}" class='btn btn-secondary btn-sm mt-1 mb-1'>Update</a>
+                <a href="{% url 'track-delete' track.id%}" class='btn btn-danger btn-sm mt-1 mb-1'>Delete</a>
+            </div>
+            <h2>
+                    <a class="article-title" href="{% url 'track-detail' track.id%}">
+                        <img src="{{track.image.url}}" class='rounded-circle article-img' alt="">
+                        {{ track.title }}
+                    
+                    </a>
+                </h2>
+            </div>
+        </article>
+    {% endfor %}
+  <h1>My Liked Songs</h1>
+  {% for track in tracks %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                Artist:
+                <a class="mr-2 logout" href="#">{{ track.artist }}</a>
+                <small class="text-muted">Uploaded by {{ track.uploader }} on {{ track.date_uploaded|date:"F d, Y" }}    </small>
+            </div>
+            <h2>
+                    <a class="article-title" href="{% url 'track-detail' track.id%}">
+                        <img src="{{track.image.url}}" class='rounded-circle article-img' alt="">
+                        {{ track.title }}
+                    
+                    </a>
+                </h2>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'song/base.html' %}
+{% load socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class='form-group'>
+                <legend class = 'border-bottome mb-4'>
+                    Log in to your account to listen to Spotify
+                </legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class='form-group'>
+                <button class='btn btn-outline-info' type="submit">Log in</button>
+                <a class='btn btn-success ' href="{% provider_login_url 'google' %}">Login with Google</a>
+            </div>
+        </form>
+        <div class='border-top pt-3'>
+            <small class='text-muted'>Dont have an account yet? <a href="{% url 'register' %}" class='ml-2'>Sign up</a> </small>
+        </div>
+
+    </div>
+{% endblock content %}

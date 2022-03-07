@@ -1,0 +1,50 @@
+{% extends 'song/base.html' %}
+{% block content %}
+
+    <h1>
+        Home
+    </h1>
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                    Artist:
+                    <a class="mr-2 logout" href="#">{{ object.artist }}</a>
+                    <small class="text-muted">Uploaded by {{ object.uploader }} on {{ object.date_uploaded|date:"F d, Y" }}    </small>
+                {% if object.uploader == user %}
+                    <a href="{% url 'track-update' object.id%}" class='btn btn-secondary btn-sm mt-1 mb-1'>Update</a>
+                    <a href="{% url 'track-delete' object.id%}" class='btn btn-danger btn-sm mt-1 mb-1'>Delete</a>
+                {% endif %}
+                
+                </div>
+                <h2 class="article-title">
+                    {{ object.title }}
+                </h2>
+                <div class='player'>
+                    <img src="{{object.image.url}}" height='300px' alt="">
+                    <audio controls autoplay>
+                        <source src="{{object.audio.url}}" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        </article>
+        <div>
+            <h2>
+                Views: {{ object.views }}
+                <br>
+                Likes: {{ object.likes.count }}
+            </h2>
+        </div>
+        <div>
+            {% if user in object.likes.all %}
+            <form action="{% url 'dislike-track' object.pk %}" method='POST'>
+                {% csrf_token %}
+                <button type='submit', name='track_id' value="{{ object.id }}" class='btn  btn-sm btn-outline-danger'>DisLike</button>
+            </form>
+            {% else %}
+            <form action="{% url 'like-track' object.pk %}" method='POST'>
+                {% csrf_token %}
+                <button type='submit', name='track_id' value="{{ object.id }}" class='btn btn-primary btn-sm'>Like</button>
+            </form>
+            {% endif %}
+        </div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends 'song/base.html' %}
+
+{% block content %}
+    <h2>You have been Logged out</h2>
+    <div class='border-top pt-3'>
+        {% comment %} <small class='text-muted'> {% endcomment %}
+            <a href="{% url 'login' %}" class='ml-2 nav-item nav-link logout'>Log in Again</a>
+            <a href="{% url 'home' %}" class='ml-2 nav-item nav-link logout'>Home</a>
+            
+        {% comment %} </small> {% endcomment %}
+    </div>
+{% endblock content %}

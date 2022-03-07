@@ -1,0 +1,25 @@
+{% extends 'song/base.html' %}
+{% block content %}
+
+    <h1>
+        Home
+    </h1>
+    {% for track in tracks %}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                Artist:
+                <a class="mr-2 logout" href="#">{{ track.artist }}</a>
+                <small class="text-muted">Uploaded by {{ track.uploader }} on {{ track.date_uploaded|date:"F d, Y" }}    </small>
+            </div>
+            <h2>
+                    <a class="article-title" href="{% url 'track-detail' track.id%}">
+                        <img src="{{track.image.url}}" class='rounded-circle article-img' alt="">
+                        {{ track.title }}
+                    
+                    </a>
+                </h2>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
